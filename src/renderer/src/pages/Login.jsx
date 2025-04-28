@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdCall } from 'react-icons/md'
 import qrcode from '../../../../resources/qrcode.png'
 import { HiDotsVertical } from 'react-icons/hi'
 import { FaGear } from 'react-icons/fa6'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { QRCodeSVG } from 'qrcode.react'
+import { Typography } from '@material-tailwind/react'
 
 export const Login = () => {
+  const [qrCode, setQRcode] = useState('tes')
+  useEffect(() => {
+    window.electron.ipcRenderer.on('qr', (event, qr) => {
+      console.log(qr)
+    })
+  }, [])
   return (
-    <div className="h-screen relative">
+    <div className="h-screen relative flex flex-col justify-between">
       <div className="h-[30%] bg-[#128c7e] p-4">
         <div className="flex gap-2">
           <div className="border-2 flex items-center justify-center p-1 rounded-full bg-[#25d366]">
@@ -15,9 +24,20 @@ export const Login = () => {
           <h3 className="font-semibold text-white">Whatsapp Clone</h3>
         </div>
       </div>
+      {/* <footer className="p-4 flex justify-center gap-10 border-t border-gray-600">
+        <Typography className="font-semibold text-sm">Created By HasyimDev</Typography>
+        <ol className="flex gap-10 items-center justify-center font-semibold text-sm">
+          <li>
+            <a href="">Contact</a>
+          </li>
+          <li>
+            <a href="">About</a>
+          </li>
+        </ol>
+      </footer> */}
 
       <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000038] flex justify-center items-center">
-        <div className="m-auto bg-white h-[70vh] w-[85vw] shadow-xl px-16 py-20 flex gap-5">
+        <div className="m-auto bg-white h-[70vh] w-[85vw] shadow-xl px-16 py-20 gap-5 flex items-center pt-10">
           <div className="">
             <h2 className="text-xl">
               To Use This App On Your Computer, must be login your Whatsapp First
@@ -36,8 +56,12 @@ export const Login = () => {
               <li>Point your phone to this screen to capture the code</li>
             </ul>
           </div>
-          <div className="max-w-[200px]">
-            <img src={qrcode} alt="" className="w-full" />
+          <div className="min-w-[200px] w-[200px] flex justify-center items-center aspect-square min-h-[200px]">
+            {qrCode ? (
+              <QRCodeSVG value={qrCode} size={200} />
+            ) : (
+              <AiOutlineLoading3Quarters className="text-[70px] w-full animate-spin" />
+            )}
           </div>
         </div>
       </div>

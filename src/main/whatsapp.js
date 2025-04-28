@@ -3,6 +3,7 @@ import { Client } from 'whatsapp-web.js'
 let client
 
 export function initWhatsapp(mainWindow) {
+  console.log('tes')
   client = new Client({
     puppeteer: {
       headless: true,
@@ -12,6 +13,7 @@ export function initWhatsapp(mainWindow) {
 
   client.on('qr', (qr) => {
     console.log('qr generated')
+    console.log(qr)
     if (mainWindow) {
       mainWindow.webContents.send('qr', qr)
     }
@@ -35,6 +37,8 @@ export function initWhatsapp(mainWindow) {
       mainWindow.webContents.send('Whatsapp Authenticated Failed')
     }
   })
+
+  client.initialize()
 }
 export function getClient() {
   return client

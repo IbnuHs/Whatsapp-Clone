@@ -1,13 +1,16 @@
+import { CheckContact } from './components/checkContact/CheckContact'
 import { Sidebar } from './components/main/Sidebar'
 import { Login } from './pages/login'
 
 function App() {
-  const isLogin = false
+  const isLogin = true
+
   return (
     <div className="">
       {isLogin ? (
-        <div className="flex bg-[#3b4252]">
+        <div className="flex">
           <Sidebar />
+          <CheckContact />
         </div>
       ) : (
         <Login />
