@@ -43,46 +43,91 @@ export const Table = (data) => {
       nama: 'Hendra Wijaya',
       noHp: '082244556677',
       status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
+    },
+    {
+      nama: 'Irfan Maulana',
+      noHp: '085712345678',
+      status: 'valid'
+    },
+    {
+      nama: 'Jihan Amelia',
+      noHp: '089900112233',
+      status: 'tidak valid'
     }
-    // {
-    //   nama: 'Irfan Maulana',
-    //   noHp: '085712345678',
-    //   status: 'valid'
-    // },
-    // {
-    //   nama: 'Jihan Amelia',
-    //   noHp: '089900112233',
-    //   status: 'tidak valid'
-    // }
-    // {
-    //   nama: 'Irfan Maulana',
-    //   noHp: '085712345678',
-    //   status: 'valid'
-    // },
-    // {
-    //   nama: 'Jihan Amelia',
-    //   noHp: '089900112233',
-    //   status: 'tidak valid'
-    // }
-    // {
-    //   nama: 'Irfan Maulana',
-    //   noHp: '085712345678',
-    //   status: 'valid'
-    // },
-    // {
-    //   nama: 'Jihan Amelia',
-    //   noHp: '089900112233',
-    //   status: 'tidak valid'
-    // }
   ]
 
   return (
-    <Card className="w-full h-full box-content rounded-md border-2 border-red-700 overflow-y-scroll mt-4">
-      <table className="w-full h-full min-w-max text-left table-auto overflow-scroll h-fit">
+    <Card className="h-full w-full  rounded-md overflow-y-scroll scrollbar-style">
+      <table className="w-full h-full border-2 min-w-max text-left">
         <thead>
           {headTable.map((i) => (
             <th key={i} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-              <Typography variant="small" color="blue-gray" className="font-semibold leading-none ">
+              <Typography variant="small" color="blue-gray" className="font-semibold leading-none">
                 {i}
               </Typography>
             </th>
@@ -91,25 +136,24 @@ export const Table = (data) => {
         <tbody>
           {example.map((row, index) => {
             console.log(index % 2)
-            const bg = index % 2 ? 'bg-blue-gray-50' : ''
-            const classes = 'p-3 '
+            const classes = 'py-2'
             return (
-              <tr className="h-fit">
-                <td className={`${bg} ${classes}`}>
+              <tr className="even:bg-blue-gray-50/50 p-4">
+                <td className={` ${classes}  `}>
                   <Typography
                     variant="small"
                     color="blue-gray"
-                    className="text-sm font-semibold px-2"
+                    className="text-xs font-semibold px-2 py-0"
                   >
                     {row.nama}
                   </Typography>
                 </td>
-                <td className={`${bg} ${classes}`}>
+                <td className={` ${classes}`}>
                   <Typography variant="small" color="blue-gray" className="text-xs">
                     {row.noHp}
                   </Typography>
                 </td>
-                <td className={`${bg} ${classes} capitalize`}>
+                <td className={` ${classes} capitalize`}>
                   <Typography
                     variant="small"
                     color="blue-gray"

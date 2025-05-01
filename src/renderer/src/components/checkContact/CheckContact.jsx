@@ -3,6 +3,7 @@ import { Footer } from '../main/footer'
 import { Input, Button } from '@material-tailwind/react'
 import { IoCloudUpload } from 'react-icons/io5'
 import { Table } from './Table'
+import { Action } from './ACtion'
 
 export const CheckContact = () => {
   const fileinpuRef = useRef(null)
@@ -10,11 +11,13 @@ export const CheckContact = () => {
     fileinpuRef.current.click()
   }
   return (
-    <section className="border-2 w-full max-h-screen box-content border-purple-700 flex flex-col justify-between bg-[#ece5dd] px-10 pt-10">
-      <div className="mx-auto h-full w-full">
-        <div className="border-2 flex items-center gap-2 max-w-[90%] mx-auto border-gray-600 w-full py-1 justify-between rounded-lg px-2">
+    <section className="w-full max-h-screen overflow-hidden flex flex-col justify-between bg-[#ece5dd] px-10 pt-10 box-border">
+      <div className="mx-auto h-[90%] box-border w-full flex flex-col gap-2">
+        <div className="border-2 flex items-center gap-2 max-w-[90%] mx-auto border-gray-600 bg-gray-300 w-full py-1 justify-between rounded-lg px-2">
           <input type="file" className="hidden" ref={fileinpuRef} />
-          <span className="inline-block w-full text-gray-500">Your Text</span>
+          <span className="inline-block w-full text-sm text-gray-700">
+            Upload Your files here...
+          </span>
           <Button
             size="sm"
             color="gray"
@@ -24,7 +27,8 @@ export const CheckContact = () => {
             Add
           </Button>
         </div>
-        <Table />
+        <Action />
+        {/* <Table /> */}
       </div>
       <Footer />
     </section>
