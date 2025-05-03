@@ -1,8 +1,13 @@
-import React from 'react'
-import { Card, Typography } from '@material-tailwind/react'
+import React, { useEffect, useState } from 'react'
+import { Card, IconButton, Typography } from '@material-tailwind/react'
+import { IoClose } from 'react-icons/io5'
 
-export const Table = (data) => {
+export const Table = ({ data, setShow, showTable }) => {
   const headTable = ['Nama', 'No Hp', 'Status']
+
+  function closeTable() {
+    setShow(false)
+  }
   const example = [
     {
       nama: 'Andi Saputra',
@@ -121,24 +126,44 @@ export const Table = (data) => {
     }
   ]
 
+  useEffect(() => {
+    console.log(showTable)
+  }, [])
   return (
-    <Card className="h-full w-full  rounded-md overflow-y-scroll scrollbar-style">
+    <Card
+      className={`h-full overflow-hidden w-full relative  rounded-md overflow-y-scroll scrollbar-style`}
+    >
+      {/* <IconButton type="button" variant="text" size="sm" className="absolute z-10 right-0">
+        <IoClose className="text-[20px]" />
+      </IconButton> */}
+      <button
+        type="button"
+        className="absolute right-0 hover:bg-gray-300 rounded-md transition-all p-1"
+        onClick={closeTable}
+      >
+        <IoClose className="text-[20px]" />
+      </button>
       <table className="w-full h-full border-2 min-w-max text-left">
         <thead>
-          {headTable.map((i) => (
-            <th key={i} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-              <Typography variant="small" color="blue-gray" className="font-semibold leading-none">
-                {i}
-              </Typography>
-            </th>
-          ))}
+          <tr>
+            {headTable.map((i) => (
+              <th key={i} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                <Typography
+                  variant="small"
+                  color="blue-gray"
+                  className="font-semibold leading-none"
+                >
+                  {i}
+                </Typography>
+              </th>
+            ))}
+          </tr>
         </thead>
         <tbody>
           {example.map((row, index) => {
-            console.log(index % 2)
             const classes = 'py-2'
             return (
-              <tr className="even:bg-blue-gray-50/50 p-4">
+              <tr key={index} className="even:bg-blue-gray-50/50 p-4">
                 <td className={` ${classes}  `}>
                   <Typography
                     variant="small"
