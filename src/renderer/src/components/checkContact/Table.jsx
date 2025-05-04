@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Card, IconButton, Typography } from '@material-tailwind/react'
 import { IoClose } from 'react-icons/io5'
+import useExcel from '../../hooks/useExcel'
 
-export const Table = ({ data, setShow, showTable }) => {
+export const Table = ({ setShow, data, showTable }) => {
   const headTable = ['Nama', 'No Hp', 'Status']
-
   function closeTable() {
     setShow(false)
   }
@@ -126,9 +126,14 @@ export const Table = ({ data, setShow, showTable }) => {
     }
   ]
 
-  useEffect(() => {
-    console.log(showTable)
-  }, [])
+  // useEffect(() => {
+  //   // const excel = await
+  //   if (data) {
+  //     console.log(data)
+  //   } else {
+  //     console.log('Loading...')
+  //   }
+  // }, [])
   return (
     <Card
       className={`h-full overflow-hidden w-full relative  rounded-md overflow-y-scroll scrollbar-style`}
@@ -160,36 +165,37 @@ export const Table = ({ data, setShow, showTable }) => {
           </tr>
         </thead>
         <tbody>
-          {example.map((row, index) => {
-            const classes = 'py-2'
-            return (
-              <tr key={index} className="even:bg-blue-gray-50/50 p-4">
-                <td className={` ${classes}  `}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className="text-xs font-semibold px-2 py-0"
-                  >
-                    {row.nama}
-                  </Typography>
-                </td>
-                <td className={` ${classes}`}>
-                  <Typography variant="small" color="blue-gray" className="text-xs">
-                    {row.noHp}
-                  </Typography>
-                </td>
-                <td className={` ${classes} capitalize`}>
-                  <Typography
-                    variant="small"
-                    color="blue-gray"
-                    className={`text-xs font-semibold ${row.status === 'valid' ? 'text-green-700' : 'text-red-700'}`}
-                  >
-                    {row.status}
-                  </Typography>
-                </td>
-              </tr>
-            )
-          })}
+          {data &&
+            data.map((row, index) => {
+              const classes = 'py-2'
+              return (
+                <tr key={index} className="even:bg-blue-gray-50/50 p-4">
+                  <td className={` ${classes}  `}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className="text-xs font-semibold px-2 py-0"
+                    >
+                      {row.nama}
+                    </Typography>
+                  </td>
+                  <td className={` ${classes}`}>
+                    <Typography variant="small" color="blue-gray" className="text-xs">
+                      {row.noHp}
+                    </Typography>
+                  </td>
+                  <td className={` ${classes} capitalize`}>
+                    <Typography
+                      variant="small"
+                      color="blue-gray"
+                      className={`text-xs font-semibold ${row.status === 'valid' ? 'text-green-700' : 'text-red-700'}`}
+                    >
+                      {row.status}
+                    </Typography>
+                  </td>
+                </tr>
+              )
+            })}
         </tbody>
       </table>
     </Card>

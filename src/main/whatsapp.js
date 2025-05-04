@@ -1,10 +1,11 @@
-import { Client } from 'whatsapp-web.js'
+import { Client, LocalAuth } from 'whatsapp-web.js'
 
 let client
 
 export function initWhatsapp(mainWindow) {
   console.log('tes')
   client = new Client({
+    authStrategy: new LocalAuth(),
     puppeteer: {
       headless: true,
       args: ['--no-sandbox']

@@ -10,8 +10,8 @@ function createWindow() {
     height: 700,
     // minWidth: 900,
     // minHeight: 700,
-    show: false,
-    autoHideMenuBar: true,
+    show: true,
+    autoHideMenuBar: false,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -28,7 +28,7 @@ function createWindow() {
     return { action: 'deny' }
   })
   mainWindow.webContents.openDevTools()
-  // initWhatsapp(mainWindow)
+  initWhatsapp(mainWindow)
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.

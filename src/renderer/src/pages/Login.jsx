@@ -8,11 +8,15 @@ import { QRCodeSVG } from 'qrcode.react'
 import { Typography } from '@material-tailwind/react'
 
 export const Login = () => {
-  const [qrCode, setQRcode] = useState('tes')
+  const [qrCode, setQRcode] = useState(null)
   useEffect(() => {
+    // console.log(window.electron)
     window.electron.ipcRenderer.on('qr', (event, qr) => {
-      console.log(qr)
+      setQRcode(qr)
+      console.log('tes')
+      // console.log(qr)
     })
+    // console.log('tes')
   }, [])
   return (
     <div className="h-screen relative flex flex-col justify-between">
@@ -24,17 +28,6 @@ export const Login = () => {
           <h3 className="font-semibold text-white">Whatsapp Clone</h3>
         </div>
       </div>
-      {/* <footer className="p-4 flex justify-center gap-10 border-t border-gray-600">
-        <Typography className="font-semibold text-sm">Created By HasyimDev</Typography>
-        <ol className="flex gap-10 items-center justify-center font-semibold text-sm">
-          <li>
-            <a href="">Contact</a>
-          </li>
-          <li>
-            <a href="">About</a>
-          </li>
-        </ol>
-      </footer> */}
 
       <div className="absolute top-0 bottom-0 left-0 right-0 bg-[#00000038] flex justify-center items-center">
         <div className="m-auto bg-white h-[70vh] w-[85vw] shadow-xl px-16 py-20 gap-5 flex items-center pt-10">
