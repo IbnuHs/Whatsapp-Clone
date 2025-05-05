@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { MdCall } from 'react-icons/md'
-import qrcode from '../../../../resources/qrcode.png'
 import { HiDotsVertical } from 'react-icons/hi'
 import { FaGear } from 'react-icons/fa6'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { QRCodeSVG } from 'qrcode.react'
-import { Typography } from '@material-tailwind/react'
 
 export const Login = () => {
   const [qrCode, setQRcode] = useState(null)

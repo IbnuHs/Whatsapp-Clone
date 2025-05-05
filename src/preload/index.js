@@ -1,8 +1,13 @@
-import { contextBridge } from 'electron'
+import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
-const api = {}
+const api = {
+  checkSession: () => ipcRenderer.invoke('check-session'),
+  onEvent: (channel, callback) => {
+    ipcRenderer.on(channel, (_, data) => callback(data))
+  }
+}
 
 if (process.contextIsolated) {
   try {

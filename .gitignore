@@ -5,3 +5,4 @@ out
 .eslintcache
 *.log*
 .wwebjs_auth
+.wwebjs_cache
