@@ -5,7 +5,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   checkSession: () => ipcRenderer.invoke('check-session'),
   onEvent: (channel, callback) => {
-    ipcRenderer.on(channel, (_, data) => callback(data))
+    ipcRenderer.invoke(channel, (_, data) => callback(data))
   }
 }
 
