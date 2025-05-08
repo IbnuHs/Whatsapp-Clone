@@ -3,6 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { initWhatsapp, CheckSession, getClient } from './whatsapp'
+import { Console } from 'console'
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -48,8 +49,13 @@ app.whenReady().then(() => {
     return CheckSession()
   })
   ipcMain.handle('logout', async () => {
-    let client = getClient()
-    await client.logout()
+    try {
+      // let client = getClient()
+      // await client.logout()
+      console.log('logout')
+    } catch (error) {
+      console.log(error)
+    }
   })
 
   app.on('activate', function () {

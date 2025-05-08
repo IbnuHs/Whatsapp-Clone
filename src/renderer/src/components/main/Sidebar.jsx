@@ -5,6 +5,12 @@ import { IoLogOut } from 'react-icons/io5'
 
 export const Sidebar = () => {
   let [isOnline, setOnline] = useState(navigator.onLine)
+  const logout = () => {
+    window.electron.ipcRenderer.on('logout', () => {
+      console.log('tes')
+    })
+    console.log('clicked')
+  }
   useEffect(() => {
     const updateStatus = () => setOnline(navigator.onLine)
     window.addEventListener('online', updateStatus)
@@ -54,12 +60,14 @@ export const Sidebar = () => {
           </ListItemPrefix>
           Check Contact
         </ListItem>
-        <ListItem className="font-semibold text-white hover:bg-[#ece5dd]" color="white">
-          <ListItemPrefix>
-            <IoLogOut />
-          </ListItemPrefix>
-          Logout
-        </ListItem>
+        <button type="button" onClick={logout}>
+          <ListItem className="font-semibold text-white hover:bg-[#ece5dd]" color="white">
+            <ListItemPrefix>
+              <IoLogOut />
+            </ListItemPrefix>
+            Logout
+          </ListItem>
+        </button>
       </List>
       {/* <Footer /> */}
     </Card>
