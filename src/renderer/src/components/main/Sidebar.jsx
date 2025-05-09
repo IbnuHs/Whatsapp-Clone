@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Card, Typography, List, ListItem, ListItemPrefix, Chip } from '@material-tailwind/react'
 import { FaClipboardCheck } from 'react-icons/fa'
 import { IoLogOut } from 'react-icons/io5'
+import Swal from 'sweetalert2'
 
-export const Sidebar = () => {
+export const Sidebar = ({ isLogin, setIsLogin }) => {
   let [isOnline, setOnline] = useState(navigator.onLine)
-  const logout = () => {
-    window.electron.ipcRenderer.on('logout', () => {
-      console.log('tes')
+  const logout = async () => {
+    window.api.logout().then((res) => {
+      console.log(res)
     })
-    console.log('clicked')
   }
   useEffect(() => {
     const updateStatus = () => setOnline(navigator.onLine)

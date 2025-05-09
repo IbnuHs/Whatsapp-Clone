@@ -7,37 +7,41 @@ import { HomePages } from './pages/HomePages'
 import { ProtectedRoute } from './routes/protectedRoute'
 
 function App() {
-  let [isLogin, setIsLogin] = useState(false)
-  const location = useLocation()
+  let [isLogin, setIsLogin] = useState(true)
+  // const location = useLocation()
   const navigate = useNavigate()
+  async function checkSession() {
+    const session = await window.api.checkSession()
+    // setIsLogin(session)
+  }
   useEffect(() => {
+    checkSession()
     if (window.api) {
-      window.api.checkSession().then((res) => {
-        // console.log('isLogin? ', res)
-      })
-      window.electron.ipcRenderer.on('ready', () => {
-        console.log('Event ready')
-        setIsLogin(true)
-      })
-      window.electron.ipcRenderer.on('authenticated', () => {
-        setIsLogin(true)
-        console.log('Event Auth')
-      })
-      window.electron.ipcRenderer.on('auth_failure', (res) => {
-        setIsLogin(false)
-        // console.log(res)
-      })
-      window.electron.ipcRenderer.on('disconnected', (res) => {
-        setIsLogin(false)
-        // console.log(res)
-      })
-      console.log('Selsai')
+      try {
+        window.electron.ipcRenderer.on('ready', () => {
+          console.log('Event ready')
+        })
+        window.electron.ipcRenderer.on('authenticated', () => {
+          // setIsLogin(true)
+          // console.log('Event Auth')
+        })
+        window.electron.ipcRenderer.on('auth_failure', (res) => {
+          // setIsLogin(false)
+          // console.log(res)
+        })
+        window.electron.ipcRenderer.on('disconnected', (res) => {
+          // setIsLogin(false)
+          // console.log(res)
+        })
+      } catch (error) {
+        console.log(error)
+      }
+      // console.log('Selsai')
     }
     // console.log(isLogin)
   }, [])
 
   useEffect(() => {
-    console.log(isLogin)
     if (isLogin) {
       console.log('Whatsapp is login')
       navigate('/')
@@ -48,16 +52,12 @@ function App() {
   return (
     <div className="">
       <Routes>
-        {/* <Route path=''/> */}
-
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/" element={<HomePages />} /> */}
-        {/* <Route path="/" element={<Navigate to="/home" />} /> */}
         <Route
           path="/"
           element={
             <ProtectedRoute isLogin={isLogin}>
-              <HomePages />
+              <HomePages isLogin={isLogin} setIsLogin={setIsLogin} />
             </ProtectedRoute>
           }
         />

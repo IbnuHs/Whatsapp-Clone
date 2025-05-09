@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { initWhatsapp, CheckSession, getClient } from './whatsapp'
+import { initWhatsapp, CheckSession, getClient, logout } from './whatsapp'
 import { Console } from 'console'
 
 function createWindow() {
@@ -29,7 +29,6 @@ function createWindow() {
     return { action: 'deny' }
   })
   mainWindow.webContents.openDevTools()
-  initWhatsapp(mainWindow)
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
@@ -40,21 +39,21 @@ function createWindow() {
   }
 }
 app.whenReady().then(() => {
+  createWindow()
+  const mainWindow = BrowserWindow.getAllWindows()[0]
+  initWhatsapp(mainWindow)
   electronApp.setAppUserModelId('com.electron')
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-  createWindow()
   ipcMain.handle('check-session', async (event) => {
     return CheckSession()
   })
-  ipcMain.handle('logout', async () => {
+  ipcMain.handle('logout', async (event) => {
     try {
-      // let client = getClient()
-      // await client.logout()
-      console.log('logout')
+      return await logout(mainWindow)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   })
 
