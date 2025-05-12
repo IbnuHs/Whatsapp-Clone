@@ -4,12 +4,11 @@ import { FaClipboardCheck } from 'react-icons/fa'
 import { IoLogOut } from 'react-icons/io5'
 import Swal from 'sweetalert2'
 
-export const Sidebar = ({ isLogin, setIsLogin }) => {
+export const Sidebar = ({ isLogin, setIsLogin, setOpen }) => {
   let [isOnline, setOnline] = useState(navigator.onLine)
-  const logout = async () => {
-    window.api.logout().then((res) => {
-      console.log(res)
-    })
+  function onOpen() {
+    setOpen(true)
+    console.log('logout')
   }
   useEffect(() => {
     const updateStatus = () => setOnline(navigator.onLine)
@@ -60,7 +59,7 @@ export const Sidebar = ({ isLogin, setIsLogin }) => {
           </ListItemPrefix>
           Check Contact
         </ListItem>
-        <button type="button" onClick={logout}>
+        <button type="button" onClick={onOpen}>
           <ListItem className="font-semibold text-white hover:bg-[#ece5dd]" color="white">
             <ListItemPrefix>
               <IoLogOut />
