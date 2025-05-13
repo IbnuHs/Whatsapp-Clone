@@ -2,7 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import { initWhatsapp, CheckSession, getClient, logout } from './whatsapp'
+import { initWhatsapp, CheckSession, getClient, logout, getUserInfo } from './whatsapp'
 import { Console } from 'console'
 
 function createWindow() {
@@ -56,6 +56,13 @@ app.whenReady().then(() => {
       console.log(error.message)
     }
   })
+  // ipcMain.handle('getuserinfo', async (event) => {
+  //   try {
+  //     return await getUserInfo()
+  //   } catch (error) {
+  //     return error
+  //   }
+  // })
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

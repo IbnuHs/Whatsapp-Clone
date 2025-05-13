@@ -11,7 +11,7 @@ export const Login = () => {
     // console.log(window.electron)
     window.electron.ipcRenderer.on('qr', (event, qr) => {
       setQRcode(qr)
-      console.log('tes')
+      console.log('QR Received')
       // console.log(qr)
     })
     // console.log('tes')

@@ -2,16 +2,25 @@ import React, { useEffect, useState } from 'react'
 import { Card, Typography, List, ListItem, ListItemPrefix, Chip } from '@material-tailwind/react'
 import { FaClipboardCheck } from 'react-icons/fa'
 import { IoLogOut } from 'react-icons/io5'
-import Swal from 'sweetalert2'
 
 export const Sidebar = ({ isLogin, setIsLogin, setOpen }) => {
   let [isOnline, setOnline] = useState(navigator.onLine)
+  const [userInfo, setUserInfo] = useState()
   function onOpen() {
     setOpen(true)
     console.log('logout')
   }
+  async function getuserInfo() {
+    window.electron.ipcRenderer.on('user-info', (e, data) => {
+      console.log(data)
+      setUserInfo(data)
+    })
+  }
   useEffect(() => {
     const updateStatus = () => setOnline(navigator.onLine)
+    getuserInfo()
+    // if (isLogin) {
+    // }
     window.addEventListener('online', updateStatus)
     window.addEventListener('offline', updateStatus)
 
@@ -23,9 +32,14 @@ export const Sidebar = ({ isLogin, setIsLogin, setOpen }) => {
   return (
     <Card className="h-screen border max-w-[16rem] rounded-none bg-[#075e54] border-gray-700 ">
       <div className="p-4 border-b flex justify-between items-center">
-        <Typography variant="h5" color="white">
-          Whatsapp Clone
-        </Typography>
+        <div className="">
+          <Typography variant="h5" color="white">
+            {userInfo && userInfo.username}
+          </Typography>
+          <div className="flex items-center gap-2">
+            <h6 className="text-[12px] text-white">{userInfo && userInfo.numberphone}</h6>
+          </div>
+        </div>
         <div className="absolute right-2">
           {isOnline ? (
             <Chip
@@ -52,7 +66,7 @@ export const Sidebar = ({ isLogin, setIsLogin, setOpen }) => {
           )}
         </div>
       </div>
-      <List className="flex justify-between h-full mb-2">
+      <List className="flex justify-between h-full mb-0">
         <ListItem className="font-semibold text-white hover:bg-[#ece5dd]" color="white">
           <ListItemPrefix>
             <FaClipboardCheck />
@@ -68,6 +82,10 @@ export const Sidebar = ({ isLogin, setIsLogin, setOpen }) => {
           </ListItem>
         </button>
       </List>
+      {/* <div className="px-4 py-2">
+        <h6 className="text-white text-[14px] font-bold">Hello, Hasyim</h6>
+      </div> */}
+
       {/* <Footer /> */}
     </Card>
   )

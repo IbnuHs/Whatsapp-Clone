@@ -5,10 +5,7 @@ let isAuthenticated = false
 export function initWhatsapp(mainWindow) {
   try {
     client = new Client({
-      authStrategy: new LocalAuth({
-        clientId: 'session',
-        dataPath: '../../my-auth'
-      }),
+      authStrategy: new LocalAuth(),
 
       puppeteer: {
         headless: true,
@@ -22,11 +19,23 @@ export function initWhatsapp(mainWindow) {
       }
     })
 
-    client.on('ready', () => {
+    client.on('ready', async () => {
       console.log('Whatsapp Ready')
+      const data = {
+        username: client.info.pushname,
+        numberphone: client.info.wid.user
+      }
+      try {
+        data.imgurl = await client.getProfilePicUrl(client.info.wid._serialized)
+      } catch (error) {
+        data.imgurl = null
+      }
+      console.log('username : ', client.info.pushname)
+      console.log('number phone : ', client.info.wid.user)
       if (mainWindow) {
         isAuthenticated = true
         mainWindow.webContents.send('ready', isAuthenticated)
+        mainWindow.webContents.send('user-info', data)
       }
     })
     client.on('authenticated', () => {

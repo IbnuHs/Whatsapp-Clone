@@ -4,6 +4,7 @@ import { electronAPI } from '@electron-toolkit/preload'
 // Custom APIs for renderer
 const api = {
   checkSession: () => ipcRenderer.invoke('check-session'),
+  // getuserinfo: () => ipcRenderer.invoke('getuserinfo'),
   logout: () => ipcRenderer.invoke('logout'),
   onEvent: (channel, callback) => {
     ipcRenderer.invoke(channel, (_, data) => callback(data))

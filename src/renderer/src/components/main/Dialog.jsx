@@ -15,12 +15,14 @@ export const LogoutDialog = ({ open, setOpen }) => {
   }
   const navigate = useNavigate()
   const logout = async () => {
-    // window.api.logout().then((res) => {
-    //   console.log(res)
-    // })
-    console.log('Berhasil logout')
+    window.api.logout().then((res) => {
+      console.log(res)
+      console.log('Berhasil logout')
+      setOpen(false)
+    })
+
     setOpen(false)
-    navigate('/login')
+    // navigate('/login')
   }
   return (
     <Dialog size="xs" open={open} className="outline-none border-2 py-4">
