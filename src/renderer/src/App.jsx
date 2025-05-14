@@ -6,7 +6,7 @@ import { ProtectedRoute } from './routes/protectedRoute'
 
 function App() {
   let [isLogin, setIsLogin] = useState(false)
-  // const location = useLocation()
+  let [isChecking, setIsChecking] = useState(true)
   const navigate = useNavigate()
   async function checkSession() {
     const session = await window.api.checkSession()
@@ -39,6 +39,11 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    if (isChecking) {
+      console.log('tessss')
+    }
+  })
   useEffect(() => {
     if (isLogin) {
       console.log('Whatsapp is login')
